@@ -1,0 +1,67 @@
+:root {
+  --color-purple: #34495e;
+  --color-light-purple: #8a4dad;
+  --color-lighter-purple: #f1f0f6;
+}
+
+.bg-purple {
+  background-color: var(--color-purple) !important;
+}
+
+.text-purple {
+  color: var(--color-purple) !important;
+}
+
+.btn-purple {
+  background-color: var(--color-purple);
+  border-color: var(--color-purple);
+  color: white;
+}
+
+.btn-purple:hover {
+  background-color: var(--color-light-purple);
+  border-color: var(--color-light-purple);
+  color: white;
+}
+
+.card-producto {
+  position: relative;
+  transition: transform 0.3s ease-in-out;
+  border: 1px solid #e9ecef;
+  border-radius: 10px;
+}
+
+.card-producto:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+}
+
+.card-producto img {
+  height: 250px;
+  object-fit: cover;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.descuento {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #dc3545;
+  color: #fff;
+  padding: 5px 8px;
+  font-size: 0.9rem;
+  border-radius: 5px;
+}
+
+.precio-normal {
+  text-decoration: line-through;
+  color: #6c757d;
+  margin-bottom: 0;
+}
+
+.precio-internet {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: var(--color-purple);
+}

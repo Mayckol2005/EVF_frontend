@@ -1,0 +1,72 @@
+/* Usamos las variables de color de tus otros archivos CSS */
+:root {
+    --color-purple: #34495e;
+    --color-light-purple: #8a4dad;
+    --color-lighter-purple: #f1f0f6;
+}
+
+/* Tarjetas de Estadísticas (KPIs) */
+.stat-card {
+  border-radius: 8px;
+  border-left: 5px solid var(--color-purple);
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+.stat-card .card-body {
+  padding: 1.5rem;
+}
+
+.stat-card .card-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.stat-card .h3 {
+  color: var(--color-purple);
+}
+
+/* Estilos para las tablas */
+.card-header.bg-purple {
+  background-color: var(--color-purple) !important;
+}
+
+.table-responsive {
+  padding: 0;
+}
+
+.table {
+  margin-bottom: 0;
+}
+
+.table thead th {
+  padding: 1rem;
+  font-weight: 600;
+  color: #495057;
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.table tbody tr:hover {
+  background-color: var(--color-lighter-purple);
+}
+
+.table td {
+  vertical-align: middle;
+  padding: 1rem;
+}
+
+.table td a {
+  text-decoration: none;
+  font-weight: 500;
+  color: var(--color-purple);
+}
+
+.table td a:hover {
+  text-decoration: underline;
+  color: var(--color-light-purple);
+}

@@ -1,0 +1,95 @@
+/* ============================================
+Estilos para la Página de Categorías
+============================================
+*/
+
+/* --- 1. Variables de Color --- */
+/* Se mantienen consistentes con el resto de tus archivos (index.css, styles.css, etc.) */
+:root {
+    --color-purple: #34495e;
+    --color-light-purple: #8a4dad;
+    --color-lighter-purple: #f1f0f6;
+}
+
+/* --- 2. Utilidades de Color --- */
+/* (Copiadas de tus otros archivos para asegurar consistencia) */
+
+.bg-purple {
+    background-color: var(--color-purple) !important;
+}
+
+.text-purple {
+    color: var(--color-purple) !important;
+}
+
+.btn-purple {
+    background-color: var(--color-purple);
+    border-color: var(--color-purple);
+    color: white;
+}
+
+.btn-purple:hover {
+    background-color: var(--color-light-purple);
+    border-color: var(--color-light-purple);
+    color: white;
+}
+
+
+/* --- 3. Estilos Específicos de la Página --- */
+
+/* Contenedor principal de la sección */
+.categorias-section {
+    padding: 4rem 0;
+}
+
+/* Título principal de la página */
+.categorias-section .page-title {
+    color: var(--color-purple);
+    font-weight: 700;
+    margin-bottom: 2.5rem; /* Espacio extra debajo del título */
+    text-align: center;
+}
+
+/* Estilo para la tarjeta de categoría.
+  Esta es la clase principal que debes añadir a tu Link/enlace.
+*/
+.card-categoria {
+    border: 1px solid #e0e0e0;
+    border-radius: 10px; /* Consistente con .card-producto */
+    text-decoration: none;
+    background-color: #ffffff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05); /* Sombra sutil */
+    
+    /* Transición suave para todos los efectos */
+    transition: all 0.3s ease-in-out;
+}
+
+.card-categoria .card-body {
+    padding: 2.5rem 1.5rem; /* Hacemos la tarjeta un poco más alta */
+}
+
+.card-categoria .card-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-purple); /* Color de texto normal */
+    margin: 0;
+    transition: color 0.3s ease-in-out;
+}
+
+/* ¡El efecto HOVER!
+  Combinamos el "levantamiento" de .card-producto con un 
+  cambio de color de fondo para hacerlo único.
+*/
+.card-categoria:hover {
+    transform: translateY(-5px); /* Efecto de "levantar" */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12); /* Sombra más pronunciada */
+    
+    /* Cambio de color principal */
+    background-color: var(--color-purple);
+    border-color: var(--color-purple);
+}
+
+/* Al hacer hover, el texto de la tarjeta cambia a blanco */
+.card-categoria:hover .card-title {
+    color: #ffffff;
+}
