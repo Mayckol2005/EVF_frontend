@@ -1,0 +1,79 @@
+:root {
+    --color-purple: #34495e;
+    --color-light-purple: #8a4dad;
+    --color-lighter-purple: #f1f0f6;
+}
+
+/* Estilos generales */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+}
+
+/* Utilidades de color - IMPORTANTE: Estas clases deben estar definidas */
+.bg-purple {
+    background-color: var(--color-purple) !important;
+}
+
+.text-purple {
+    color: var(--color-purple) !important;
+}
+
+.btn-purple {
+    background-color: var(--color-purple);
+    border-color: var(--color-purple);
+    color: white;
+}
+
+.btn-purple:hover {
+    background-color: var(--color-light-purple);
+    border-color: var(--color-light-purple);
+    color: white;
+}
+
+/* Estilos de navegación - Asegurar que estos estilos estén presentes */
+.navbar-dark.bg-purple {
+    background-color: var(--color-purple) !important;
+}
+
+.navbar-brand img {
+    border-radius: 5px;
+}
+
+.itemNavbarInicio {
+    margin-right: 40px;
+}
+
+.navbar-text {
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Estilos para la página de login */
+.login-section {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+}
+
+.login-card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.login-card .card-header {
+    border-radius: 10px 10px 0 0 !important;
+    background-color: var(--color-purple) !important;
+    color: white !important;
+}
+
+.login-card .border {
+    border-color: var(--color-light-purple) !important;
+    border-radius: 8px;
+}
+
+/* Estilos para formularios */
+.form-control:focus {
+    border-color: var(--color-light-purple);
+    box-shadow: 0 0 0 0.25rem rgba(138, 77, 173, 0.25);
+}

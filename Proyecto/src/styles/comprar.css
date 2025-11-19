@@ -1,0 +1,27 @@
+/* ============================================
+Estilos para la página de Resumen de Compra (Comprar.js)
+============================================ */
+
+/* Esto asegurará que el contenedor se vea bien */
+.comprar-section {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+/* Estilos específicos para la tarjeta de resumen */
+.comprar-section .card-header {
+    font-weight: bold;
+    font-size: 1.15rem;
+}
+
+.comprar-section .list-group-item {
+    padding: 1rem 1.25rem;
+}
+
+.comprar-section .list-group-item h6 {
+    font-size: 1rem;
+}
+
+.comprar-section .card-footer h5 {
+    font-size: 1.25rem;
+}

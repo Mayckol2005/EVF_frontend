@@ -1,0 +1,80 @@
+:root {
+    --color-purple: #34495e; /* Color principal (azul pizarra oscuro) */
+    --color-light-purple: #5b7692; /* Tono más claro para efectos hover */
+    --color-lighter-purple: #f8f9fa; /* Color de fondo muy claro, casi blanco */
+}
+
+body {
+    background-color: var(--color-lighter-purple);
+}
+
+.bg-purple {
+    background-color: var(--color-purple) !important;
+}
+
+.text-purple {
+    color: var(--color-purple) !important;
+}
+
+.btn-purple {
+    background-color: var(--color-purple);
+    border-color: var(--color-purple);
+    color: white;
+    font-weight: 500;
+    padding: 10px 20px; /* Aumenta el padding para un mejor look and feel. */
+    transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+}
+
+.btn-purple:hover {
+    background-color: var(--color-light-purple);
+    border-color: var(--color-light-purple);
+    color: white;
+}
+
+.contacto-section {
+    padding: 4rem 0;
+}
+
+.contacto-section .card {
+    border: none; /* Se elimina el borde por defecto de Bootstrap. */
+    border-radius: 10px; /* Bordes más suaves. */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08); /* Sombra sutil para dar profundidad. */
+    overflow: hidden; /* Asegura que el contenido respete los bordes redondeados. */
+}
+
+.contacto-section .card-header {
+    border-bottom: none; /* Se quita la línea divisoria. */
+}
+
+.contacto-section .card-header h5 {
+    font-weight: 500;
+}
+
+.contacto-section .d-flex.align-items-start {
+    margin-bottom: 1.5rem !important; /* Aumenta el espacio entre los ítems de contacto. */
+}
+
+.contacto-section .fas {
+    font-size: 1.25rem; /* Íconos un poco más grandes. */
+    margin-top: 5px;
+    width: 25px; /* Ancho fijo para alineación perfecta. */
+    text-align: center;
+}
+
+.form-label {
+    font-weight: 500;
+    color: #495057;
+}
+
+.form-control,
+.form-select {
+    border-radius: 8px; /* Bordes redondeados para un look moderno. */
+    padding: 10px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--color-light-purple);
+    box-shadow: 0 0 0 0.25rem rgba(52, 73, 94, 0.2); /* Sombra de foco personalizada. */
+}
