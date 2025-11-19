@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 // Importamos AMBAS funciones de nuestra API de usuarios
-import { getAllUsers, createUser } from '../data/usersAPI';
-
+import { loginUser, createUser } from '../data/usersAPI';
 const AuthContext = createContext();
 
 export const useAuth = () => useContext(AuthContext);
@@ -27,23 +26,18 @@ export const AuthProvider = ({ children }) => {
   }, [currentUser]);
 
   // Función para iniciar sesión
-  const login = (email, password) => {
-    return new Promise((resolve, reject) => {
-      getAllUsers().then(users => {
-        // Buscamos al usuario en nuestra API simulada
-        const user = users.find(u => u.correo === email && u.password === password);
-
-        if (user) {
-          // No guardamos la contraseña en el estado por seguridad
-          const { password: _, ...userToStore } = user;
-          setCurrentUser(userToStore);
-          resolve(userToStore); // Devolvemos el usuario
-        } else {
-          // No encontrado
-          reject(new Error('Credenciales inválidas.'));
-        }
-      });
-    });
+  const login = async (email, password) => {
+      try {
+        // Llamamos al Backend
+        const userFromBackend = await loginUser(email, password);
+        
+        // Si el backend responde bien, guardamos el usuario en el estado
+        setCurrentUser(userFromBackend);
+        return userFromBackend;
+      } catch (error) {
+        // Si falla (401 o 403), lanzamos el error para que el componente Login lo muestre
+        throw new Error(error.message);
+      }
   };
 
   // Función para registrar un nuevo usuario

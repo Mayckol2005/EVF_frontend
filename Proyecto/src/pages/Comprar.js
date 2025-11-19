@@ -4,8 +4,8 @@ import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
 import { regionesComunas } from '../data/regionesComunas';
 import '../styles/comprar.css';
+// Solo importamos createBoleta. El backend maneja el stock.
 import { createBoleta } from '../data/boletasAPI';
-import { updateProduct, getProductById } from '../data/productsAPI';
 
 function Comprar() {
   const { cartItems, clearCart } = useCart();
@@ -21,6 +21,7 @@ function Comprar() {
   const [comunasDisponibles, setComunasDisponibles] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  // Calcular totales
   useEffect(() => {
     const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
     const envio = subtotal > 50000 ? 0 : 4500;
@@ -28,6 +29,7 @@ function Comprar() {
     setSummary({ subtotal, envio, total });
   }, [cartItems]);
 
+  // Cargar datos del usuario si está logueado
   useEffect(() => {
     if (currentUser) {
       setFormData(prev => ({
@@ -35,11 +37,13 @@ function Comprar() {
         nombre: currentUser.nombre || '',
         apellidos: currentUser.apellidos || '',
         correo: currentUser.email || currentUser.correo || '',
-        calle: currentUser.calle || '',
+        calle: currentUser.direccion || '', // Mapeamos dirección a calle
         region: currentUser.region || '',
         comuna: currentUser.comuna || '',
-        departamento: currentUser.departamento || ''
+        departamento: '' // Este campo no solemos tenerlo en el usuario base
       }));
+      
+      // Cargar comunas si el usuario ya tiene región
       if (currentUser.region) {
         const regionEncontrada = regionesComunas.find(r => r.nombre === currentUser.region);
         if (regionEncontrada) {
@@ -52,6 +56,7 @@ function Comprar() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
+    
     if (name === 'region') {
       const regionEncontrada = regionesComunas.find(r => r.nombre === value);
       if (regionEncontrada) {
@@ -82,93 +87,64 @@ function Comprar() {
 
   const handleProcederAlPago = async (e) => {
     e.preventDefault();
-    if (loading) return; // Evitar doble clic
+    if (loading) return; 
     setErrors({});
     setLoading(true);
 
     if (validateForm()) {
-      const isPaymentSuccessful = Math.random() < 0.95; // Simulación de pago
+      // 1. Simulación de Pasarela de Pago (Frontend)
+      // En un caso real, aquí integrarías Webpay o Stripe.
+      const isPaymentSuccessful = Math.random() < 0.99; 
 
       if (isPaymentSuccessful) {
-        const fechaCompra = new Date();
-        const boletaNumero = `BOL-${Date.now()}`;
-        const dataParaBoleta = {
-          numero: boletaNumero,
-          fecha: fechaCompra.toISOString(),
-          cliente: formData,
-          items: cartItems.map(item => ({
-            id: item.id,
-            name: item.name,
-            quantity: item.quantity,
-            price: item.price
-          })),
-          resumen: summary
-        };
-
         try {
-          // 1. Guardar la boleta
-          await createBoleta(dataParaBoleta);
-          console.log("Boleta guardada.");
+          // 2. Preparar datos para el Backend
+          // Solo necesitamos enviar los items. El backend calcula precios y stock.
+          const dataParaBackend = {
+             items: cartItems // Nuestra API transformará esto al formato DTO
+          };
 
-          console.log("Actualizando stock...");
-          // 2. Actualizar stock para cada producto
-          const stockUpdatePromises = cartItems.map(async (item) => {
-            try {
-              // Obtenemos el producto actual para saber su stock
-              const productoActual = await getProductById(item.id);
-              const stockActual = parseInt(productoActual.stock, 10) || 0; 
-              const nuevoStock = stockActual - item.quantity;
+          // 3. Llamada al Backend (Transacción Atómica)
+          // Esto crea la orden Y descuenta el stock en el servidor.
+          const ordenCreada = await createBoleta(dataParaBackend);
+          
+          console.log("Compra exitosa, orden ID:", ordenCreada.id);
 
-              await updateProduct(item.id, { 
-                ...productoActual, 
-                stock: nuevoStock < 0 ? 0 : nuevoStock 
-              }); 
-
-              console.log(`Stock actualizado para producto ID ${item.id}: ${nuevoStock}`);
-            } catch (stockError) {
-              console.error(`Error al actualizar stock para producto ID ${item.id}:`, stockError);
-            }
-          });
-
-          // Esperamos a que TODAS las actualizaciones de stock terminen
-          await Promise.all(stockUpdatePromises);
-          console.log("Actualización de stock completada.");
-
-          // 3. Limpiar el carrito
+          // 4. Limpiar carrito y redirigir
           clearCart();
-          console.log("Carrito limpiado.");
-
-          // 4. Navegar como ÚLTIMO paso
-          console.log("Navegando a pago-correcto...");
+          
           navigate('/pago-correcto', {
             state: {
-              boletaData: dataParaBoleta,
+              // Pasamos la orden real que devolvió la BD (con ID real)
+              boletaData: { 
+                  numero: ordenCreada.id, 
+                  fecha: ordenCreada.fecha,
+                  total: ordenCreada.total,
+                  cliente: formData // Para mostrar datos en la boleta visual
+              },
               nombre: formData.nombre
             }
           });
 
         } catch (error) {
-          console.error("Error en el proceso de pago/guardado:", error);
+          console.error("Error en el backend:", error);
+          // Si el backend falla (ej: Stock insuficiente), mostramos el error
           setLoading(false); 
-          navigate('/pago-error', { state: { message: error.message || "Error al procesar la compra." } });
+          navigate('/pago-error', { state: { message: error.message } });
         }
 
       } else {
-        // Si la simulación de pago falla
-        console.log("Simulación de pago fallida.");
+        // Fallo en la simulación de pago (tarjeta rechazada)
+        console.log("Pago rechazado por la pasarela simulada.");
         setLoading(false); 
-        navigate('/pago-error');
+        navigate('/pago-error', { state: { message: "Tu tarjeta fue rechazada por el banco." } });
       }
     } else {
-      // Si la validación del formulario falla
-      console.log('Errores de validación', errors);
       setLoading(false); 
       alert("Por favor, corrige los errores marcados en el formulario.");
     }
   };
 
-
-  // Renderizado 
   const formatCurrency = (value) => new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP' }).format(value);
 
   if (cartItems.length === 0) {
