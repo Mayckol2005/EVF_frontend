@@ -2,65 +2,103 @@ import React from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
-import { Button } from 'react-bootstrap';
+// Importamos los componentes de React-Bootstrap
+import { Navbar as BSNavbar, Nav, Container, Button, Badge } from 'react-bootstrap';
+import '../styles/index.css'; // Aseguramos que los estilos globales estén aquí
 
 function Navbar() {
   const navigate = useNavigate();
   const { cartCount } = useCart();
   const { currentUser, logout, isAuthenticated } = useAuth();
-  // Función para manejar el cierre de sesión
+
   const handleLogout = () => {
     logout();
-    navigate('/login'); // Redirigir al login después de cerrar sesión
+    navigate('/login');
   };
-  // Este componente solo renderiza la barra de navegación pública
-  // AdminLayout se encarga de mostrar AdminNavbar.
-  return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-      <div className="container">
-        <Link className="navbar-brand" to="/">
-          <img src="https://cdn-icons-png.freepik.com/256/30/30422.png" alt="Logo Perfumería" height="40" />
-          <span className="ms-2">DuocFragancias</span>
-        </Link>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav ms-auto">
-            <li className="nav-item"><NavLink className="nav-link" to="/" end>Inicio</NavLink></li>
-            <li className="nav-item"><NavLink className="nav-link" to="/tienda">Tienda</NavLink></li>
-            <li className="nav-item"><NavLink className="nav-link" to="/categorias">Categorías</NavLink></li>
-            <li className="nav-item"><NavLink className="nav-link text-danger fw-bold" to="/ofertas">Ofertas 🔥</NavLink></li>
-            <li className="nav-item"><NavLink className="nav-link" to="/blogs">Blogs</NavLink></li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/carrito">
-                Carrito
-                {cartCount > 0 && (
-                  <span className="badge bg-danger ms-1">{cartCount}</span>
-                )}
-              </NavLink>
-            </li>
-            {isAuthenticated && currentUser?.tipo === 'administrador' && (
-              <li className="nav-item">
-                <NavLink className="nav-link text-warning fw-bold" to="/admin">
 
-                  <i className="bi bi-shield-lock-fill me-1"></i>
-                  Panel Admin
-                </NavLink>
-              </li>
+  return (
+    // expand="lg": Colapsa en pantallas menores a lg (celulares/tablets)
+    // collapseOnSelect: Cierra el menú automáticamente al hacer clic en un link
+    <BSNavbar expand="lg" variant="dark" className="bg-purple sticky-top shadow-sm" collapseOnSelect>
+      <Container>
+        
+        {/* Marca / Logo */}
+        <BSNavbar.Brand as={Link} to="/" className="d-flex align-items-center">
+          <img 
+            src="https://cdn-icons-png.freepik.com/256/30/30422.png" 
+            alt="Logo Perfumería" 
+            height="40" 
+            className="me-2 rounded"
+          />
+          <span className="fw-bold">DuocFragancias</span>
+        </BSNavbar.Brand>
+
+        {/* Botón Hamburguesa (Toggle) */}
+        <BSNavbar.Toggle aria-controls="responsive-navbar-nav" />
+
+        {/* Contenido Colapsable */}
+        <BSNavbar.Collapse id="responsive-navbar-nav">
+          
+          {/* Menú Izquierdo (Enlaces principales) */}
+          <Nav className="me-auto">
+            <Nav.Link as={NavLink} to="/" end>Inicio</Nav.Link>
+            <Nav.Link as={NavLink} to="/tienda">Tienda</Nav.Link>
+            <Nav.Link as={NavLink} to="/categorias">Categorías</Nav.Link>
+            <Nav.Link as={NavLink} to="/ofertas" className="text-danger fw-bold">Ofertas 🔥</Nav.Link>
+            <Nav.Link as={NavLink} to="/blogs">Blogs</Nav.Link>
+            <Nav.Link as={NavLink} to="/nosotros">Nosotros</Nav.Link>
+            <Nav.Link as={NavLink} to="/contacto">Contacto</Nav.Link>
+          </Nav>
+
+          {/* Menú Derecho (Carrito, Admin, Login) */}
+          <Nav className="align-items-lg-center">
+            
+            {/* Enlace Carrito */}
+            <Nav.Link as={NavLink} to="/carrito" className="position-relative me-3">
+              <i className="bi bi-cart-fill me-1"></i> Carrito
+              {cartCount > 0 && (
+                <Badge bg="danger" pill className="position-absolute top-0 start-100 translate-middle">
+                  {cartCount}
+                </Badge>
+              )}
+            </Nav.Link>
+
+            {/* Panel Admin (Solo si es admin) */}
+            {isAuthenticated && currentUser?.tipo === 'administrador' && (
+              <Nav.Link as={NavLink} to="/admin" className="text-warning fw-bold me-3">
+                <i className="bi bi-shield-lock-fill me-1"></i>
+                Panel Admin
+              </Nav.Link>
             )}
-            {/* Mostrar "Ingresar" o "Cerrar Sesión" */}
+
+            {/* Botones de Sesión */}
             {isAuthenticated ? (
-              <li className="nav-item">
-                <Button variant="outline-light" size="sm" onClick={handleLogout} className="ms-2">Cerrar Sesión</Button>
-              </li>
+              <div className="d-flex align-items-center mt-2 mt-lg-0">
+                <span className="text-white-50 me-2 d-none d-lg-inline">
+                  Hola, {currentUser.nombre}
+                </span>
+                <Button 
+                  variant="outline-light" 
+                  size="sm" 
+                  onClick={handleLogout}
+                  className="ms-lg-2"
+                >
+                  Cerrar Sesión
+                </Button>
+              </div>
             ) : (
-              <li className="nav-item"><NavLink className="nav-link" to="/login">Ingresar</NavLink></li>
+              // CORRECCIÓN AQUÍ: Usamos clases de Bootstrap estándar para asegurar visibilidad
+              // 'btn btn-light' hace que el botón sea blanco con texto oscuro (muy visible en fondo morado)
+              // 'fw-bold' para que destaque
+              <Nav.Link as={Link} to="/login" className="btn btn-light text-purple fw-bold px-3 ms-lg-2 mt-2 mt-lg-0 rounded-pill">
+                Ingresar
+              </Nav.Link>
             )}
-          </ul>
-        </div>
-      </div>
-    </nav>
+          </Nav>
+
+        </BSNavbar.Collapse>
+      </Container>
+    </BSNavbar>
   );
 }
 

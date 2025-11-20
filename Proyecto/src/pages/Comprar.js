@@ -104,24 +104,19 @@ function Comprar() {
              items: cartItems // Nuestra API transformará esto al formato DTO
           };
 
-          // 3. Llamada al Backend (Transacción Atómica)
-          // Esto crea la orden Y descuenta el stock en el servidor.
+         // 3. Llamada al Backend
           const ordenCreada = await createBoleta(dataParaBackend);
           
-          console.log("Compra exitosa, orden ID:", ordenCreada.id);
+          // CORRECCIÓN: Usamos .numero en lugar de .id, ya que el adaptador lo transformó
+          console.log("Compra exitosa, Boleta N°:", ordenCreada.numero);
 
           // 4. Limpiar carrito y redirigir
           clearCart();
           
           navigate('/pago-correcto', {
             state: {
-              // Pasamos la orden real que devolvió la BD (con ID real)
-              boletaData: { 
-                  numero: ordenCreada.id, 
-                  fecha: ordenCreada.fecha,
-                  total: ordenCreada.total,
-                  cliente: formData // Para mostrar datos en la boleta visual
-              },
+              // Pasamos el objeto 'ordenCreada' directo, ya viene formateado por el adaptador
+              boletaData: ordenCreada, 
               nombre: formData.nombre
             }
           });

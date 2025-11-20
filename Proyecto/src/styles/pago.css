@@ -67,3 +67,51 @@ Estilos para las páginas de Estado de Pago (PagoCorrecto.js, PagoError.js)
 .boleta-imprimible .table tfoot {
   border-top: 2px solid #333;
 }
+
+/* ... (tus estilos anteriores) ... */
+
+.pago-status-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 60px); /* Ajusta según tu navbar */
+    background-color: #f1f0f6; 
+}
+
+.pago-status-page .card {
+    max-width: 600px;
+    width: 100%;
+    border-radius: 15px;
+}
+
+.pago-status-page .bi {
+    font-size: 6rem; 
+}
+
+/* --- ESTILOS DE IMPRESIÓN (LA MAGIA) --- */
+@media print {
+  /* 1. Ocultar TODO lo que no sea la boleta */
+  body * {
+    visibility: hidden;
+  }
+
+  /* 2. Hacer visible SOLO el contenedor de la boleta y sus hijos */
+  #section-to-print, #section-to-print * {
+    visibility: visible;
+  }
+
+  /* 3. Posicionar la boleta en la esquina superior izquierda del papel */
+  #section-to-print {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Opcional: Ocultar navbar y footer explícitamente si es necesario */
+  nav, footer, .btn {
+    display: none !important;
+  }
+}

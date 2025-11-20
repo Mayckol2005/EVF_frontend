@@ -17,9 +17,9 @@ const adaptarOrdenParaFrontend = (ordenBackend) => {
 
   return {
     // Backend manda 'id', Frontend usaba 'numero'
-    numero: ordenBackend.id, 
+    numero: ordenBackend.id,
     fecha: ordenBackend.fecha,
-    
+
     // Backend manda 'total', Frontend usaba 'resumen.total'
     resumen: {
       subtotal: ordenBackend.total,
@@ -28,10 +28,10 @@ const adaptarOrdenParaFrontend = (ordenBackend) => {
     },
 
     // AQUÍ ESTABA EL ERROR: Backend manda 'usuario', Frontend espera 'cliente'
-    cliente: ordenBackend.usuario || { 
-      nombre: 'Usuario', 
-      apellidos: 'Eliminado', 
-      correo: 'No disponible' 
+    cliente: ordenBackend.usuario || {
+      nombre: 'Usuario',
+      apellidos: 'Eliminado',
+      correo: 'No disponible'
     },
 
     // Backend manda 'detalles' (con 'producto'), Frontend espera 'items'
@@ -49,18 +49,18 @@ const adaptarOrdenParaFrontend = (ordenBackend) => {
 export const getAllBoletas = async () => {
   try {
     const response = await fetch(API_URL, {
-        headers: getAuthHeaders()
+      headers: getAuthHeaders()
     });
-    
+
     if (!response.ok) throw new Error('Error al obtener historial de órdenes');
-    
+
     const dataBackend = await response.json();
 
     // Pasamos cada orden recibida por el adaptador antes de entregarla a los componentes
     // ordenamos por id descendente (las nuevas primero)
     return dataBackend
       .map(adaptarOrdenParaFrontend)
-      .sort((a, b) => b.numero - a.numero); 
+      .sort((a, b) => b.numero - a.numero);
 
   } catch (error) {
     console.error(error);
@@ -72,10 +72,10 @@ export const getAllBoletas = async () => {
 export const createBoleta = async (boletaData) => {
   // Preparamos payload para Java (solo items)
   const payload = {
-      items: boletaData.items.map(item => ({
-          productoId: item.id,
-          cantidad: item.quantity
-      }))
+    items: boletaData.items.map(item => ({
+      productoId: item.id,
+      cantidad: item.quantity
+    }))
   };
 
   try {
@@ -86,12 +86,12 @@ export const createBoleta = async (boletaData) => {
     });
 
     if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(errorText);
+      const errorText = await response.text();
+      throw new Error(errorText);
     }
 
     const ordenCreadaBackend = await response.json();
-    
+
     // Devolvemos la orden adaptada para que PagoCorrecto.js la pueda mostrar bien
     return adaptarOrdenParaFrontend(ordenCreadaBackend);
 
@@ -99,4 +99,16 @@ export const createBoleta = async (boletaData) => {
     console.error("Error en createBoleta:", error);
     throw error;
   }
+};
+// En src/data/boletasAPI.js agrega esto al final:
+
+export const getDashboardStats = async () => {
+  const token = localStorage.getItem('token');
+  const response = await fetch('http://localhost:8080/api/admin/dashboard/stats', {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  });
+  if (!response.ok) throw new Error('Error al cargar estadísticas');
+  return await response.json();
 };
