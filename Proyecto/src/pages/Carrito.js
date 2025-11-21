@@ -20,20 +20,16 @@ function Carrito() {
   };
 
   const handleQuantityChange = (id, newQuantity, stock) => {
-    // 1. Convertir a número y asegurar que sea al menos 1
     let qty = parseInt(newQuantity, 10) || 1;
     if (qty < 1) {
       qty = 1;
     }
 
-    // 2. Comprobar contra el stock disponible (si existe)
     if (stock !== undefined && qty > stock) {
-      qty = stock; // Limitar al stock máximo
-      // Opcional: Mostrar una alerta temporal o mensaje
+      qty = stock; 
       alert(`Solo quedan ${stock} unidades disponibles de este producto.`);
     }
 
-    // 3. Actualizar la cantidad en el contexto
     updateQuantity(id, qty);
   };
 
@@ -93,7 +89,7 @@ function Carrito() {
                           variant="outline-secondary"
                           size="sm"
                           onClick={() => handleQuantityChange(item.id, item.quantity - 1, item.stock)}
-                          disabled={item.quantity <= 1} // Deshabilitar si la cantidad es 1
+                          disabled={item.quantity <= 1} 
                           aria-label="Disminuir cantidad"
                         >
                           <i className="bi bi-dash-lg"></i>
@@ -103,7 +99,7 @@ function Carrito() {
                           value={item.quantity}
                           onChange={(e) => handleQuantityChange(item.id, e.target.value, item.stock)}
                           min="1"
-                          max={item.stock} // Establecer el máximo según el stock
+                          max={item.stock} 
                           className="mx-2 text-center quantity-input"
                           style={{ width: '60px' }}
                           aria-label={`Cantidad de ${item.name}`}
@@ -112,7 +108,7 @@ function Carrito() {
                           variant="outline-secondary"
                           size="sm"
                           onClick={() => handleQuantityChange(item.id, item.quantity + 1, item.stock)}
-                          disabled={item.stock !== undefined && item.quantity >= item.stock} // Deshabilitar si se alcanza el stock
+                          disabled={item.stock !== undefined && item.quantity >= item.stock} 
                           aria-label="Aumentar cantidad"
                         >
                           <i className="bi bi-plus-lg"></i>
