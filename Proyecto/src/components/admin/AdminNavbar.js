@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-// Importamos los componentes de React-Bootstrap
 import { Navbar, Nav, Container, Dropdown } from 'react-bootstrap';
 
 function AdminNavbar() {
@@ -14,8 +13,6 @@ function AdminNavbar() {
   };
 
   return (
-    // collapseOnSelect: Cierra el menú al elegir una opción (Vital para móviles)
-    // expand="lg": Se convierte en hamburguesa en pantallas medianas/pequeñas
     <Navbar expand="lg" variant="dark" className="bg-purple shadow-sm sticky-top" collapseOnSelect>
       <Container fluid>
         
