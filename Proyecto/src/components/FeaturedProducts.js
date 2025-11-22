@@ -3,10 +3,10 @@ import ProductCard from './ProductCard';
 
 const products = [
   {
-    imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR809Q4Aq9sAyaug7uoTFzyiVPUIvCllt76Vw&s',
-    title: 'Fragancia Nocturna',
-    description: 'Ideal para ocasiones especiales y eventos nocturnos.',
-    price: '34.990'
+    imageUrl: 'https://images.unsplash.com/photo-1659167664742-a592e00f5a29?q=80&w=1334&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    title: 'Fragancia Amaderada Oriental',
+    description: 'Eros Eau de Parfum de Versace: una fragancia audaz y seductora que combina frescura cítrica y sensualidad amaderada para el hombre seguro que deja huella.',
+    price: '150.990'
   },
   {
     imageUrl: 'https://images.unsplash.com/photo-1541643600914-78b084683601?ixlib=rb-4.0.3',
