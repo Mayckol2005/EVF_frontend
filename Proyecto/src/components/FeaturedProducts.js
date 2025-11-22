@@ -9,16 +9,16 @@ const products = [
     price: '150.990'
   },
   {
-    imageUrl: 'https://images.unsplash.com/photo-1541643600914-78b084683601?ixlib=rb-4.0.3',
-    title: 'Esencia Fresca',
-    description: 'Notas cítricas y frescas para el día a día.',
-    price: '29.990'
+    imageUrl: 'https://www.allbeauty.com/images?url=https://static.thcdn.com/productimg/original/15059499-1335265776407563.jpg&format=webp&auto=avif&width=1000&height=1000&fit=cover',
+    title: 'Aroma Profundo y Seductor',
+    description: 'Phantom Intense de Rabanne: un aroma ambarino y audaz con lavanda, salvia y ron que redefine la masculinidad del hombre moderno.',
+    price: '120.990'
   },
   {
-    imageUrl: 'https://i5.walmartimages.com/asr/2e062367-ebdc-47d9-a1d6-31593e838427.8f53dc1eb2ce05c9700d2e8f7a89f3b4.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF',
-    title: 'Aroma Elegante',
-    description: 'Fragancia sofisticada con notas amaderadas.',
-    price: '39.990'
+    imageUrl: 'https://www.allbeauty.com/images?url=https://static.thcdn.com/productimg/original/15059499-1335265776407563.jpg&format=webp&auto=avif&width=1000&height=1000&fit=cover',
+    title: 'Aroma Profundo y Seductor',
+    description: 'Phantom Intense de Rabanne: un aroma ambarino y audaz con lavanda, salvia y ron que redefine la masculinidad del hombre moderno.',
+    price: '120.990'
   }
 ];
 
