@@ -15,7 +15,7 @@ const products = [
     price: '120.990'
   },
   {
-    imageUrl: 'https://www.allbeauty.com/images?url=https://static.thcdn.com/productimg/original/15059499-1335265776407563.jpg&format=webp&auto=avif&width=1000&height=1000&fit=cover',
+    imageUrl: 'https://www.perfumeriajulia.es/229632-pdt_540/invictus-victory-edp-vapo100ml.jpg',
     title: 'Aroma Profundo y Seductor',
     description: 'Phantom Intense de Rabanne: un aroma ambarino y audaz con lavanda, salvia y ron que redefine la masculinidad del hombre moderno.',
     price: '120.990'
