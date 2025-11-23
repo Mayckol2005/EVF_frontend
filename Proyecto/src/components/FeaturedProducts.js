@@ -6,19 +6,19 @@ const products = [
     imageUrl: 'https://images.unsplash.com/photo-1659167664742-a592e00f5a29?q=80&w=1334&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     title: 'Fragancia Amaderada Oriental',
     description: 'Eros Eau de Parfum de Versace: una fragancia audaz y seductora que combina frescura cítrica y sensualidad amaderada para el hombre seguro que deja huella.',
-    price: '150.990'
+    price: '152.990'
   },
   {
     imageUrl: 'https://www.allbeauty.com/images?url=https://static.thcdn.com/productimg/original/15059499-1335265776407563.jpg&format=webp&auto=avif&width=1000&height=1000&fit=cover',
     title: 'Aroma Profundo y Seductor',
     description: 'Phantom Intense de Rabanne: un aroma ambarino y audaz con lavanda, salvia y ron que redefine la masculinidad del hombre moderno.',
-    price: '120.990'
+    price: '123.990'
   },
   {
-    imageUrl: 'https://www.perfumeriajulia.es/229632-pdt_540/invictus-victory-edp-vapo100ml.jpg',
-    title: 'Aroma Profundo y Seductor',
-    description: 'Phantom Intense de Rabanne: un aroma ambarino y audaz con lavanda, salvia y ron que redefine la masculinidad del hombre moderno.',
-    price: '120.990'
+    imageUrl: 'https://fast-shop.ge/wp-content/uploads/2021/02/9b180736813493.572a241d94162.jpg',
+    title: 'Fresco y Elegancia Absoluta',
+    description: 'Bleu de Chanel: un aroma aromático-amaderado que encarna la libertad y la elegancia en un azul profundo y cautivador.',
+    price: '148.500'
   }
 ];
 
