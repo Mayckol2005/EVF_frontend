@@ -10,15 +10,12 @@ function Ofertas() {
   const { addToCart } = useCart(); 
 
   useEffect(() => {
-    // 1. Obtenemos TODOS los productos
     getAllProducts()
       .then(data => {
-        // 2. FILTRAMOS solo los que están en oferta
         const enOferta = data.filter(
           (producto) => producto.price < producto.normalPrice
         );
         
-        // 3. Guardamos solo los productos filtrados en el estado
         setProductosEnOferta(enOferta);
       })
       .catch(error => {
@@ -27,12 +24,11 @@ function Ofertas() {
       .finally(() => {
         setLoading(false);
       });
-  }, []); // Se ejecuta solo una vez al cargar la página
+  }, []); 
 
   
   const formatCurrency = (value) => new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP' }).format(value);
 
-  // Mensaje de Carga
   if (loading) {
     return (
       <div className="container text-center my-5 py-5">
@@ -44,7 +40,6 @@ function Ofertas() {
     );
   }
 
-  // Renderizado de la página
   return (
     <section className="py-5">
       <div className="container">
@@ -87,7 +82,6 @@ function Ofertas() {
               </div>
             ))
           ) : (
-            // Mensaje si no se encuentran ofertas
             <div className="col-12 text-center">
               <h4 className="text-muted">¡Vaya! No encontramos ofertas por el momento.</h4>
               <p>Vuelve a visitarnos pronto o explora nuestra <Link to="/tienda">tienda completa</Link>.</p>
