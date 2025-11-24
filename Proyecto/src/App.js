@@ -43,7 +43,7 @@ function App() {
     <AuthProvider>
       <CartProvider>
         <Routes>
-          {/* --- GRUPO 1: RUTAS PÚBLICAS (Con MainLayout) --- */}
+          {/* Rutas públicas (MainLayout) */}
           <Route path="/" element={<MainLayout />}>
             <Route index element={<Inicio />} />
             <Route path="registro" element={<Registro />} />
@@ -63,7 +63,7 @@ function App() {
             <Route path="pago-error" element={<PagoError />} />
           </Route>
 
-          {/* --- GRUPO 3: RUTAS DE ADMINISTRADOR (Con AdminLayout) --- */}
+          {/* Rutas de administrador (AdminLayout) */}
           <Route
             path="/admin"
             element={
