@@ -4,10 +4,9 @@ import HeroSection from '../components/HeroSection';
 import FeaturedProducts from '../components/FeaturedProducts';
 import '../styles/index.css';
 
-// La página "Inicio" es un contenedor para las secciones de esa página
+// Página de Inicio: contiene las secciones principales de la portada
 function Inicio() {
   return (
-    // Usamos un Fragment <>...</> para agrupar los componentes
     <>
       <HeroSection />
       <FeaturedProducts />
