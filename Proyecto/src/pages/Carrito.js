@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
-import { Image, Button, Form, Alert } from 'react-bootstrap';
+import { Image, Button, Form } from 'react-bootstrap';
 import '../styles/carrito.css';
 
 function Carrito() {
@@ -21,12 +21,10 @@ function Carrito() {
 
   const handleQuantityChange = (id, newQuantity, stock) => {
     let qty = parseInt(newQuantity, 10) || 1;
-    if (qty < 1) {
-      qty = 1;
-    }
+    if (qty < 1) qty = 1;
 
     if (stock !== undefined && qty > stock) {
-      qty = stock; 
+      qty = stock;
       alert(`Solo quedan ${stock} unidades disponibles de este producto.`);
     }
 
@@ -54,9 +52,8 @@ function Carrito() {
       <div className="container">
         <h2 className="text-center mb-5 text-purple">Tu Carrito de Compras</h2>
         <div className="row g-4">
-          {/* Columna Izquierda: Items del Carrito */}
           <div className="col-lg-8">
-            {cartItems.map(item => (
+            {cartItems.map((item) => (
               <div key={item.id} className="card shadow-sm mb-3 cart-item">
                 <div className="row g-0">
                   <div className="col-md-3 d-flex align-items-center justify-content-center p-2">
@@ -70,26 +67,23 @@ function Carrito() {
                   </div>
                   <div className="col-md-9">
                     <div className="card-body d-flex flex-column flex-sm-row justify-content-between align-items-sm-center">
-                      {/* Nombre y Precio */}
                       <div className="mb-2 mb-sm-0 me-sm-3">
                         <h5 className="card-title mb-1 text-purple">{item.name}</h5>
                         <p className="card-text mb-0 fw-bold">{formatCurrency(item.price)}</p>
-                        {/* Mensaje opcional de stock bajo */}
                         {item.stock !== undefined && item.stock <= 5 && item.quantity < item.stock && (
-                           <small className="text-danger d-block mt-1">¡Quedan pocas unidades!</small>
+                          <small className="text-danger d-block mt-1">¡Quedan pocas unidades!</small>
                         )}
                         {item.stock !== undefined && item.quantity === item.stock && (
-                            <small className="text-success d-block mt-1">Has añadido el máximo disponible.</small>
+                          <small className="text-success d-block mt-1">Has añadido el máximo disponible.</small>
                         )}
                       </div>
 
-                      {/* Controles de Cantidad */}
                       <div className="d-flex align-items-center quantity-controls mb-2 mb-sm-0">
                         <Button
                           variant="outline-secondary"
                           size="sm"
                           onClick={() => handleQuantityChange(item.id, item.quantity - 1, item.stock)}
-                          disabled={item.quantity <= 1} 
+                          disabled={item.quantity <= 1}
                           aria-label="Disminuir cantidad"
                         >
                           <i className="bi bi-dash-lg"></i>
@@ -99,7 +93,7 @@ function Carrito() {
                           value={item.quantity}
                           onChange={(e) => handleQuantityChange(item.id, e.target.value, item.stock)}
                           min="1"
-                          max={item.stock} 
+                          max={item.stock}
                           className="mx-2 text-center quantity-input"
                           style={{ width: '60px' }}
                           aria-label={`Cantidad de ${item.name}`}
@@ -108,14 +102,13 @@ function Carrito() {
                           variant="outline-secondary"
                           size="sm"
                           onClick={() => handleQuantityChange(item.id, item.quantity + 1, item.stock)}
-                          disabled={item.stock !== undefined && item.quantity >= item.stock} 
+                          disabled={item.stock !== undefined && item.quantity >= item.stock}
                           aria-label="Aumentar cantidad"
                         >
                           <i className="bi bi-plus-lg"></i>
                         </Button>
                       </div>
 
-                      {/* Botón Eliminar */}
                       <Button
                         variant="outline-danger"
                         size="sm"
@@ -130,7 +123,6 @@ function Carrito() {
                 </div>
               </div>
             ))}
-            {/* Botón Vaciar Carrito */}
             <div className="text-end mt-3">
               <Button variant="danger" onClick={clearCart}>
                 Vaciar Carrito
@@ -138,7 +130,6 @@ function Carrito() {
             </div>
           </div>
 
-          {/* Columna Derecha: Resumen del Pedido */}
           <div className="col-lg-4">
             <div className="card shadow-sm sticky-top" style={{ top: '100px' }}>
               <div className="card-header bg-purple text-white">
@@ -153,7 +144,7 @@ function Carrito() {
                   <li className="list-group-item d-flex justify-content-between align-items-center px-0">
                     <span>Envío</span>
                     <span className="fw-bold">
-                      {summary.envio === 0 ? "Gratis" : formatCurrency(summary.envio)}
+                      {summary.envio === 0 ? 'Gratis' : formatCurrency(summary.envio)}
                     </span>
                   </li>
                   <li className="list-group-item d-flex justify-content-between align-items-center px-0 border-top pt-3">
